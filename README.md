@@ -1,0 +1,1 @@
+# capcut-uppercaser-win
