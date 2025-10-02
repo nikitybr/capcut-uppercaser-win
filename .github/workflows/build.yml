@@ -22,7 +22,7 @@ jobs:
         run: |
           pyinstaller --windowed --icon=uppercaser-capcut.icns --add-data "tray_capcut_uppercaser.png:." main.py
       - name: Upload macOS artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: macOS-app
           path: dist/main
@@ -43,7 +43,7 @@ jobs:
         run: |
           pyinstaller --noconsole --icon=tray_capcut_uppercaser.ico main.py
       - name: Upload Windows artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Windows-exe
           path: dist/main.exe
