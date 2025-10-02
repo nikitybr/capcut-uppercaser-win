@@ -1,0 +1,50 @@
+name: Build CapCut Case Changer
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyautogui pyperclip pystray pillow
+      - name: Build macOS app
+        run: |
+          pyinstaller --windowed --icon=uppercaser-capcut.icns --add-data "tray_capcut_uppercaser.png:." main.py
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: macOS-app
+          path: dist/main
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyautogui pyperclip pystray pillow
+      - name: Build Windows exe
+        run: |
+          pyinstaller --noconsole --icon=tray_capcut_uppercaser.ico main.py
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Windows-exe
+          path: dist/main.exe
+
